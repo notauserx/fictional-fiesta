@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32616.157
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PixelSort.App", "PixelSort.App\PixelSort.App.csproj", "{067922C8-C7CD-442E-B1EE-C8D1C95292C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelSort.Domain", "PixelSort.Domain\PixelSort.Domain.csproj", "{503C2CAF-7B1B-488F-B7FE-8F82B625D9F9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{067922C8-C7CD-442E-B1EE-C8D1C95292C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{067922C8-C7CD-442E-B1EE-C8D1C95292C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{067922C8-C7CD-442E-B1EE-C8D1C95292C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{067922C8-C7CD-442E-B1EE-C8D1C95292C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{503C2CAF-7B1B-488F-B7FE-8F82B625D9F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{503C2CAF-7B1B-488F-B7FE-8F82B625D9F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{503C2CAF-7B1B-488F-B7FE-8F82B625D9F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{503C2CAF-7B1B-488F-B7FE-8F82B625D9F9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CE6D12D1-CEDB-493C-8607-3F54482F8C60}
+	EndGlobalSection
+EndGlobal
