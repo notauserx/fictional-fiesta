@@ -10,43 +10,32 @@ namespace PixelSort.App
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Color[] colors;
-        int width = 400;
-        int height = 300;
-        int stride;
-        double dpi = 96;
+        PixelSortViewModel pixelSortViewModel;
 
-        BitmapSource bmpSource;
         public MainWindow()
         {
-            stride = width * 4;
+            pixelSortViewModel = new PixelSortViewModel(450, 300);
             InitializeComponent();
         }
 
         private void RandomColorGeneratorButton_Click(object sender, RoutedEventArgs e)
         {
-            colors = RandomColorDataGenerator.GenerateRandomColorData(width, height);
-            bmpSource = generateBitmapSourceFromColors(colors);
-            PixelImage.Source = bmpSource;
-        }
-
-        private BitmapSource generateBitmapSourceFromColors(Color[] colors)
-        {
-            byte[] pixelData = new PixelConverter(height, width)
-                .GetTransposedPixelsFromArgbColors(colors);
-
             
-
-            return BitmapSource.Create(width, height, dpi, dpi,
-                System.Windows.Media.PixelFormats.Bgr32, null, pixelData, width* 4);
+            PixelImage.Source = pixelSortViewModel.GetBitmapSourceFromRandomData();
         }
+
 
         private void SortColorsButton_Click(object sender, RoutedEventArgs e)
         {
-            var sortedColors = ColorSorter.GetSortedColors(colors);
-            var sortedBmpSource = generateBitmapSourceFromColors(sortedColors);
+            if(pixelSortViewModel.IsColorsEmpty())
+            {
+                // TODO :: display error message to the user.
+            } 
+            else
+            {
+                PixelImage.Source = pixelSortViewModel.GetBitmapSourceFromSortedData();
+            }
 
-            PixelImage.Source = sortedBmpSource;
         }
 
     }
