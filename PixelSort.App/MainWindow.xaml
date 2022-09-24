@@ -25,7 +25,7 @@
             Grid.Column ="0"
             Grid.Row ="0" 
             Content="Random Color" Click="RandomColorGeneratorButton_Click" />
-        
+
         <Button 
             x:Name="SortColorsButton"
             Margin="50 30 50 30"
@@ -36,11 +36,14 @@
         <Image 
             x:Name="PixelImage"
             Margin="20,30,20,30"
-            Grid.ColumnSpan="2"  Grid.Row="1" />
-        <Border BorderBrush="Black" BorderThickness="1" 
-                Margin="20,30,20,30"
-                Grid.ColumnSpan="2"
-                Grid.Row="1"/>
+            Grid.ColumnSpan="2"  
+            Grid.Row="1" />
+        <Border 
+            BorderBrush="Black" 
+            BorderThickness="1" 
+            Margin="20,30,20,30"
+            Grid.ColumnSpan="2"
+            Grid.Row="1"/>
 
 
 
