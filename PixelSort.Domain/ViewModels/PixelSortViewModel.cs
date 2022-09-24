@@ -11,7 +11,7 @@ namespace PixelSort.Domain
         private int height;
         private int dpi;
         private int pixelSize;
-        private Color[] colors;
+        private Pixel[] pixels;
 
         public PixelSortViewModel(int width, int height)
         {
@@ -23,28 +23,30 @@ namespace PixelSort.Domain
 
         public BitmapSource GetBitmapSourceFromRandomData()
         {
-            colors = RandomColorDataGenerator.GenerateRandomColorData(width, height);
-            return generateBitmapSourceFromColors(colors);
+            pixels = RandomColorDataGenerator.GenerateRandomPixelData(width * height);
+            return generateBitmapSourceFromColors(pixels);
         }
 
-        public bool IsColorsEmpty() => colors is null;
+        public bool IsColorsEmpty() => pixels is null;
 
         public BitmapSource GetBitmapSourceFromSortedData()
         {
-            if(colors is null)
+            if(pixels is null)
             {
                 throw new Exception("Cannot sort data befor data is set");
             }
 
             // TODO :: if colors are already sorted, not need to sort again.
-            var sortedColors = colors.OrderBy(c => c.GetHue()).ToArray();
-            return generateBitmapSourceFromColors(sortedColors);
+            //Array.Sort(colors, (a, b) => a.GetHue().CompareTo(b.GetHue()));
+            var sorted = pixels.OrderBy(x => x.Hue).ToArray();
+
+            return generateBitmapSourceFromColors(sorted);
         }
 
-        private BitmapSource generateBitmapSourceFromColors(Color[] colors)
+        private BitmapSource generateBitmapSourceFromColors(Pixel[] pixels)
         {
             byte[] pixelData = new PixelConverter(width, height)
-                .GetTransposedPixelsFromArgbColors(colors);
+                .GetTransposedPixelsFromArgbColors(pixels);
 
             return BitmapSource.Create(width, height, dpi, dpi,
                 System.Windows.Media.PixelFormats.Bgr32, null, pixelData, width * pixelSize);

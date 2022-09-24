@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Linq;
 using Xunit;
 
 namespace PixelSort.Domain.Tests
@@ -16,13 +17,15 @@ namespace PixelSort.Domain.Tests
             var converter = new PixelConverter(width, height);
 
             var colors = new Color[width * height];
+            var pixels = colors.Select(c => new Pixel(c)).ToArray();
+
 
             for (var i = 0; i < width * height; i++)
             {
                 colors[i] = Color.AliceBlue;
             }
 
-            var actual = converter.GetTransposedPixelsFromArgbColors(colors);
+            var actual = converter.GetTransposedPixelsFromArgbColors(pixels);
 
             Assert.Equal(expectedSize, actual.Length);
         }
@@ -40,7 +43,9 @@ namespace PixelSort.Domain.Tests
                 Color.Orchid, Color.Orchid,Color.Orchid,
             };
 
-            var actual = converter.GetTransposedPixelsFromArgbColors(colors);
+            var pixels = colors.Select(c => new Pixel(c)).ToArray();
+
+            var actual = converter.GetTransposedPixelsFromArgbColors(pixels);
 
             var expected = new byte[]
             {
