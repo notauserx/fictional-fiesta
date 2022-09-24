@@ -2,7 +2,6 @@
 using System.Drawing;
 using System.Windows.Media.Imaging;
 using PixelSort.Domain;
-using System.Threading.Tasks;
 
 namespace PixelSort.App
 {
@@ -24,7 +23,7 @@ namespace PixelSort.App
             InitializeComponent();
         }
 
-        private async void RandomColorGeneratorButton_Click(object sender, RoutedEventArgs e)
+        private void RandomColorGeneratorButton_Click(object sender, RoutedEventArgs e)
         {
             colors = RandomColorDataGenerator.GenerateRandomColorData(width, height);
             bmpSource = generateBitmapSourceFromColors(colors);
@@ -42,7 +41,7 @@ namespace PixelSort.App
                 System.Windows.Media.PixelFormats.Bgr32, null, pixelData, width* 4);
         }
 
-        private async void SortColorsButton_Click(object sender, RoutedEventArgs e)
+        private void SortColorsButton_Click(object sender, RoutedEventArgs e)
         {
             var sortedColors = ColorSorter.GetSortedColors(colors);
             var sortedBmpSource = generateBitmapSourceFromColors(sortedColors);
