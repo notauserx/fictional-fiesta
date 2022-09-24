@@ -7,11 +7,13 @@ namespace PixelSort.Domain
 {
     public class PixelSortViewModel
     {
+        private Pixel[] pixels;
+
         private int width;
         private int height;
         private int dpi;
         private int pixelSize;
-        private Pixel[] pixels;
+        private bool isSorted;
 
         public PixelSortViewModel(int width, int height)
         {
@@ -21,26 +23,36 @@ namespace PixelSort.Domain
             pixelSize = 4;
         }
 
+        public bool ArePixelsEmpty() => pixels is null;
+        public bool ArePixelsSorted() => isSorted;
+
         public BitmapSource GetBitmapSourceFromRandomData()
         {
             pixels = RandomColorDataGenerator.GenerateRandomPixelData(width * height);
+            isSorted = false;
+            
             return generateBitmapSourceFromColors(pixels);
         }
 
-        public bool IsColorsEmpty() => pixels is null;
-
         public BitmapSource GetBitmapSourceFromSortedData()
         {
-            if(pixels is null)
+            if (pixels is null)
             {
-                throw new Exception("Cannot sort data befor data is set");
+                throw new Exception("Can not sort pixels before pixels are generated.");
             }
 
-            // TODO :: if colors are already sorted, not need to sort again.
-            //Array.Sort(colors, (a, b) => a.GetHue().CompareTo(b.GetHue()));
-            var sorted = pixels.OrderBy(x => x.Hue).ToArray();
+            if (isSorted is false)
+            {
+                SortPixels();
+                isSorted = true;
+            }
 
-            return generateBitmapSourceFromColors(sorted);
+            return generateBitmapSourceFromColors(pixels);
+        }
+
+        private void SortPixels()
+        {
+            pixels = pixels.OrderBy(x => x.Hue).ToArray();
         }
 
         private BitmapSource generateBitmapSourceFromColors(Pixel[] pixels)

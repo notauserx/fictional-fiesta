@@ -27,7 +27,7 @@ namespace PixelSort.App
 
         private void SortColorsButton_Click(object sender, RoutedEventArgs e)
         {
-            if(pixelSortViewModel.IsColorsEmpty())
+            if(pixelSortViewModel.ArePixelsEmpty())
             {
                 // TODO :: display error message to the user.
             } 
