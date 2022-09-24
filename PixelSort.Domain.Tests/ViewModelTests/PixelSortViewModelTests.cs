@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace PixelSort.Domain.Tests
@@ -13,28 +14,40 @@ namespace PixelSort.Domain.Tests
         }
 
         [Fact]
-        public void Test_IsSorted_Is_False_After_GetBitmapSourceFromRandomData()
+        public void Test_IsSorted_Is_False_After_UpdateBackBufferWithRandomPixelData()
         {
-            var vm = new PixelSortViewModel(4, 4);
-            var _ = vm.GetBitmapSourceFromRandomData();
+            var taskScheduler = new DeterministicTaskScheduler();
+            var vm = new PixelSortViewModel(4, 4, taskScheduler);
+            vm.UpdateBackBufferWithRandomPixelData();
+
+            taskScheduler.RunTasksUntilIdle();
+
+
             Assert.False(vm.ArePixelsSorted());
         }
 
         [Fact]
         public void Test_IsSorted_Is_True_After_GetBitmapSourceFromSortedData()
         {
-            var vm = new PixelSortViewModel(4, 4);
-            var data = vm.GetBitmapSourceFromRandomData();
-            var _ = vm.GetBitmapSourceFromSortedData();
+            var taskScheduler = new DeterministicTaskScheduler();
+            var vm = new PixelSortViewModel(4, 4, taskScheduler);
+            
+            vm.UpdateBackBufferWithRandomPixelData();
+            taskScheduler.RunTasksUntilIdle();
+
+            vm.UpdateBackBufferWithSortedPixelData();
+            taskScheduler.RunTasksUntilIdle();
+
             Assert.True(vm.ArePixelsSorted());
         }
 
         [Fact]
         public void Test_GetBitmapSourceFromSortedData_Throws_Exception_When_Colors_Is_Null()
         {
-            var vm = new PixelSortViewModel(4,4);
+            var taskScheduler = new DeterministicTaskScheduler();
+            var vm = new PixelSortViewModel(4,4, taskScheduler);
 
-            Assert.Throws<Exception>(() => vm.GetBitmapSourceFromSortedData());
+            Assert.Throws<Exception>(() => vm.UpdateBackBufferWithSortedPixelData());
         }
 
         

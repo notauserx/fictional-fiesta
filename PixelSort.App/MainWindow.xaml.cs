@@ -1,4 +1,10 @@
-﻿using System.Windows;
+﻿using System;
+using System.Runtime.InteropServices;
+using System.Threading;
+using System.Windows;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 using PixelSort.Domain;
 
 namespace PixelSort.App
@@ -12,30 +18,27 @@ namespace PixelSort.App
 
         public MainWindow()
         {
-            pixelSortViewModel = new PixelSortViewModel(450, 300);
+            pixelSortViewModel = new PixelSortViewModel(1024, 768);
             InitializeComponent();
         }
 
         private void RandomPixelGeneratorButton_Click(object sender, RoutedEventArgs e)
         {
-            PixelImage.Source = pixelSortViewModel.GetBitmapSourceFromRandomData();
+            pixelSortViewModel.UpdateBackBufferWithRandomPixelData();
+            PixelImage.Source = pixelSortViewModel.WriteableBitmap;
         }
-
 
         private void SortPixelsButton_Click(object sender, RoutedEventArgs e)
         {
-            if(pixelSortViewModel.ArePixelsEmpty())
+            if (pixelSortViewModel.ArePixelsEmpty())
             {
                 // TODO :: display error message to the user.
-            } 
+            }
             else
             {
-                PixelImage.Source = pixelSortViewModel.GetBitmapSourceFromSortedData();
+                pixelSortViewModel.UpdateBackBufferWithSortedPixelData();
             }
 
         }
-
-        
-
     }
 }
