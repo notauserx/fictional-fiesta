@@ -4,22 +4,6 @@ using System.Threading.Tasks;
 
 namespace PixelSort.Domain
 {
-    public class ColorData
-    {
-        public ColorData(Color color, int row, int column)
-        {
-            Color = color;
-            RowIndex = row;
-            ColumnIndex = column;
-        }
-
-        
-
-        public Color Color { get; set; }
-        public int RowIndex { get; set; }
-        public int ColumnIndex { get; set; }
-
-    }
     public class RandomColorDataGenerator
     {
         private static readonly Random _random = new Random();
