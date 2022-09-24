@@ -1,6 +1,4 @@
 ﻿using System.Windows;
-using System.Drawing;
-using System.Windows.Media.Imaging;
 using PixelSort.Domain;
 
 namespace PixelSort.App
@@ -18,14 +16,13 @@ namespace PixelSort.App
             InitializeComponent();
         }
 
-        private void RandomColorGeneratorButton_Click(object sender, RoutedEventArgs e)
+        private void RandomPixelGeneratorButton_Click(object sender, RoutedEventArgs e)
         {
-            
             PixelImage.Source = pixelSortViewModel.GetBitmapSourceFromRandomData();
         }
 
 
-        private void SortColorsButton_Click(object sender, RoutedEventArgs e)
+        private void SortPixelsButton_Click(object sender, RoutedEventArgs e)
         {
             if(pixelSortViewModel.ArePixelsEmpty())
             {
@@ -37,6 +34,8 @@ namespace PixelSort.App
             }
 
         }
+
+        
 
     }
 }

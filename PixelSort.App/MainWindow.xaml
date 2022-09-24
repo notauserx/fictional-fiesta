@@ -19,20 +19,22 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Button 
-            x:Name="RandomColorGeneratorButton"
+            x:Name="RandomPixelGeneratorButton"
             Margin="50 30 50 30"
             Height ="30" 
             Grid.Column ="0"
             Grid.Row ="0" 
-            Content="Random Color" Click="RandomColorGeneratorButton_Click" />
+            Content="Random Color" 
+            Click="RandomPixelGeneratorButton_Click" />
 
         <Button 
-            x:Name="SortColorsButton"
+            x:Name="SortPixelsButton"
             Margin="50 30 50 30"
             Height ="30" 
             Grid.Column ="1"
             Grid.Row ="0" 
-            Content="Color Sorting" Click="SortColorsButton_Click" />
+            Content="Color Sorting" 
+            Click="SortPixelsButton_Click" />
         <Image 
             x:Name="PixelImage"
             Margin="20,30,20,30"
