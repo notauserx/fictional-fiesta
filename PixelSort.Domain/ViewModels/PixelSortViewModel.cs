@@ -39,7 +39,7 @@ namespace PixelSort.Domain
 
         private BitmapSource generateBitmapSourceFromColors(Color[] colors)
         {
-            byte[] pixelData = new PixelConverter(height, width)
+            byte[] pixelData = new PixelConverter(width, height)
                 .GetTransposedPixelsFromArgbColors(colors);
 
             return BitmapSource.Create(width, height, dpi, dpi,

@@ -13,7 +13,7 @@ namespace PixelSort.Domain.Tests
         public void Test_PixelArraySize_From_GetTransposedPixelsFromArgbColors(
             int width, int height, int expectedSize)
         {
-            var converter = new PixelConverter(height, width);
+            var converter = new PixelConverter(width, height);
 
             var colors = new Color[width * height];
 
@@ -30,7 +30,7 @@ namespace PixelSort.Domain.Tests
         [Fact]
         public void Test_GetTransposedPixelsFromArgbColors_Arranges_Pixels_Correctly()
         {
-            var converter = new PixelConverter(3, 4);
+            var converter = new PixelConverter(4, 3);
 
             var colors = new Color[]
             {

@@ -7,10 +7,11 @@ namespace PixelSort.Domain
         private int height;
         private int width;
         private int pixelSize;
-        public PixelConverter(int height, int width)
+        public PixelConverter(int width, int height)
         {
-            this.height = height;
             this.width = width;
+            this.height = height;
+
             this.pixelSize = 4; 
         }
 
