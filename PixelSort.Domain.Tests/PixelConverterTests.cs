@@ -5,10 +5,32 @@ namespace PixelSort.Domain.Tests
 {
     public class PixelConverterTests
     {
+        [Theory]
+        [InlineData(1, 1, 4)]
+        [InlineData(1, 2, 8)]
+        [InlineData(2, 4, 32)]
+        [InlineData(30, 40, 4800)]
+        public void Test_PixelArraySize_From_GetTransposedPixelsFromArgbColors(
+            int width, int height, int expectedSize)
+        {
+            var converter = new PixelConverter(height, width);
+
+            var colors = new Color[width * height];
+
+            for (var i = 0; i < width * height; i++)
+            {
+                colors[i] = Color.AliceBlue;
+            }
+
+            var actual = converter.GetTransposedPixelsFromArgbColors(colors);
+
+            Assert.Equal(expectedSize, actual.Length);
+        }
+
         [Fact]
         public void Test_GetTransposedPixelsFromArgbColors_Arranges_Pixels_Correctly()
         {
-            var converter = new PixelConverter(3, 4, 4);
+            var converter = new PixelConverter(3, 4);
 
             var colors = new Color[]
             {
@@ -40,7 +62,7 @@ namespace PixelSort.Domain.Tests
                 Color.Orchid.B,Color.Orchid.G,Color.Orchid.R,Color.Orchid.A,
             };
 
-            for(var i = 0; i< expected.Length; i++)
+            for (var i = 0; i < expected.Length; i++)
             {
                 Assert.Equal(expected[i], actual[i]);
             }

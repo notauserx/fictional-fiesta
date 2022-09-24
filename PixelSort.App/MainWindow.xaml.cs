@@ -32,7 +32,7 @@ namespace PixelSort.App
 
         private BitmapSource generateBitmapSourceFromColors(Color[] colors)
         {
-            byte[] pixelData = new PixelConverter(height, width, 4)
+            byte[] pixelData = new PixelConverter(height, width)
                 .GetTransposedPixelsFromArgbColors(colors);
 
             
