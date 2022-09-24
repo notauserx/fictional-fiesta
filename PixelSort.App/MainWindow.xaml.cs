@@ -1,10 +1,4 @@
-﻿using System;
-using System.Runtime.InteropServices;
-using System.Threading;
-using System.Windows;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Threading;
+﻿using System.Windows;
 using PixelSort.Domain;
 
 namespace PixelSort.App
