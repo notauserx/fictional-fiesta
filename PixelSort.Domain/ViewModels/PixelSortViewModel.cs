@@ -11,6 +11,7 @@ namespace PixelSort.Domain
         private int dpi;
         private int pixelSize;
         private Color[] colors;
+
         public PixelSortViewModel(int width, int height)
         {
             this.width = width;
