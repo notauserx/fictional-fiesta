@@ -6,43 +6,7 @@ namespace PixelSort.Domain.Tests
     public class PixelConverterTests
     {
         [Fact]
-        public void Test_Pixels()
-        {
-            var converter = new PixelConverter(3,4,4);
-
-            var colors = new Color[]
-            {
-                Color.Aqua, Color.Aqua, Color.Aqua, 
-                Color.Blue, Color.Blue, Color.Blue,
-                Color.Orange,Color.Orange,Color.Orange,
-                Color.Orchid, Color.Orchid,Color.Orchid,
-            };
-
-            var actual = converter.GetTransposedPixelsFromColors(colors);
-
-            var expected = new byte[]
-            {
-                Color.Aqua.B, Color.Blue.B, Color.Orange.B, Color.Orchid.B,
-                Color.Aqua.G, Color.Blue.G, Color.Orange.G, Color.Orchid.G,
-                Color.Aqua.R, Color.Blue.R, Color.Orange.R, Color.Orchid.R,
-                Color.Aqua.A, Color.Blue.A, Color.Orange.A, Color.Orchid.A,
-
-                Color.Aqua.B, Color.Blue.B, Color.Orange.B, Color.Orchid.B,
-                Color.Aqua.G, Color.Blue.G, Color.Orange.G, Color.Orchid.G,
-                Color.Aqua.R, Color.Blue.R, Color.Orange.R, Color.Orchid.R,
-                Color.Aqua.A, Color.Blue.A, Color.Orange.A, Color.Orchid.A,
-
-                Color.Aqua.B, Color.Blue.B, Color.Orange.B, Color.Orchid.B,
-                Color.Aqua.G, Color.Blue.G, Color.Orange.G, Color.Orchid.G,
-                Color.Aqua.R, Color.Blue.R, Color.Orange.R, Color.Orchid.R,
-                Color.Aqua.A, Color.Blue.A, Color.Orange.A, Color.Orchid.A,
-            };
-
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void Test_Pixels1()
+        public void Test_GetTransposedPixelsFromArgbColors_Arranges_Pixels_Correctly()
         {
             var converter = new PixelConverter(3, 4, 4);
 
