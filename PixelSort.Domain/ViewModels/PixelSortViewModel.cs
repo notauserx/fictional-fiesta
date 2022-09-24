@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Media.Imaging;
 
 namespace PixelSort.Domain
@@ -34,7 +35,9 @@ namespace PixelSort.Domain
             {
                 throw new Exception("Cannot sort data befor data is set");
             }
-            var sortedColors = ColorSorter.GetSortedColors(colors);
+
+            // TODO :: if colors are already sorted, not need to sort again.
+            var sortedColors = colors.OrderBy(c => c.GetHue()).ToArray();
             return generateBitmapSourceFromColors(sortedColors);
         }
 

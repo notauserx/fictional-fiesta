@@ -7,12 +7,13 @@ namespace PixelSort.Domain
         private int height;
         private int width;
         private int pixelSize;
+
         public PixelConverter(int width, int height)
         {
             this.width = width;
             this.height = height;
 
-            this.pixelSize = 4; 
+            pixelSize = 4; 
         }
 
         public byte[] GetTransposedPixelsFromArgbColors(Color[] colors)
