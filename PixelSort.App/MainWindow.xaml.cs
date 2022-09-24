@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Media.Imaging;
 using PixelSort.Domain;
+using System.Threading.Tasks;
 
 namespace PixelSort.App
 {
@@ -11,7 +12,7 @@ namespace PixelSort.App
     public partial class MainWindow : Window
     {
         private Color[] colors;
-        int width = 450;
+        int width = 400;
         int height = 300;
         int stride;
         double dpi = 96;
@@ -21,41 +22,33 @@ namespace PixelSort.App
         {
             stride = width * 4;
             InitializeComponent();
-            colors = RandomColorDataGenerator.GenerateRandomColorData(height * width);
-            bmpSource = generateBitmapSourceFromColors(colors);
-
-
         }
 
-        private void RandomColorGeneratorButton_Click(object sender, RoutedEventArgs e)
+        private async void RandomColorGeneratorButton_Click(object sender, RoutedEventArgs e)
         {
+            colors = RandomColorDataGenerator.GenerateRandomColorData(width, height);
+            bmpSource = generateBitmapSourceFromColors(colors);
             PixelImage.Source = bmpSource;
         }
 
         private BitmapSource generateBitmapSourceFromColors(Color[] colors)
         {
-            byte[] pixelData = new byte[height * stride];
+            byte[] pixelData = new PixelConverter(height, width, 4)
+                .GetTransposedPixelsFromArgbColors(colors);
 
-            var index = 0;
-            foreach (var color in colors)
-            {
-                pixelData[index++] = color.B; // B
-                pixelData[index++] = color.G; // G
-                pixelData[index++] = color.R; // R
-                pixelData[index++] = color.A; // A
-
-            }
+            
 
             return BitmapSource.Create(width, height, dpi, dpi,
-                System.Windows.Media.PixelFormats.Bgr32, null, pixelData, stride);
+                System.Windows.Media.PixelFormats.Bgr32, null, pixelData, width* 4);
         }
 
-        private void SortColorsButton_Click(object sender, RoutedEventArgs e)
+        private async void SortColorsButton_Click(object sender, RoutedEventArgs e)
         {
             var sortedColors = ColorSorter.GetSortedColors(colors);
             var sortedBmpSource = generateBitmapSourceFromColors(sortedColors);
 
             PixelImage.Source = sortedBmpSource;
         }
+
     }
 }
