@@ -20,14 +20,18 @@ namespace PixelSort.Domain
 
         private readonly TaskFactory uiTaskFactory;
 
-        public PixelSortViewModel(int width, int height, TaskScheduler taskScheduler = null)
+        
+        public PixelSortViewModel(TaskScheduler taskScheduler) 
+            : this(1024, 768, taskScheduler) { }
+
+
+        public PixelSortViewModel(int width, int height, TaskScheduler taskScheduler)
         {
             dpi = 96;
             this.width = width;
             this.height = height;
 
             wb = new WriteableBitmap(width, height, dpi, dpi, PixelFormats.Bgr32, null);
-            taskScheduler ??= TaskScheduler.FromCurrentSynchronizationContext();
 
             uiTaskFactory = new TaskFactory(taskScheduler);
         }
@@ -38,10 +42,11 @@ namespace PixelSort.Domain
         public bool ArePixelsEmpty() => pixels is null;
         public bool ArePixelsSorted() => isSorted;
 
+
         public void UpdateBackBufferWithRandomPixelData()
         {
             uiTaskFactory.StartNew(() =>            
-                copyBytesToBackBuffer(getRandomPixelBytes())
+                CopyBytesToBackBuffer(GetRandomPixelBytes())
             );
         }
 
@@ -53,11 +58,11 @@ namespace PixelSort.Domain
             }
             
             uiTaskFactory.StartNew(() =>
-                copyBytesToBackBuffer(getSortedPixelBytes())
+                CopyBytesToBackBuffer(GetSortedPixelBytes())
             );
         }
 
-        private void copyBytesToBackBuffer(byte[] buffer)
+        private void CopyBytesToBackBuffer(byte[] buffer)
         {
             // lock on UI thread
             wb.Lock();
@@ -78,7 +83,7 @@ namespace PixelSort.Domain
 
         }
 
-        private byte[] getRandomPixelBytes()
+        private byte[] GetRandomPixelBytes()
         {
             pixels = RandomPixelDataGenerator.GenerateRandomPixelData(width * height);
             isSorted = false;
@@ -87,7 +92,7 @@ namespace PixelSort.Domain
                 .GetTransposedPixelsFromArgbColors(pixels);
         }
 
-        private byte[] getSortedPixelBytes()
+        private byte[] GetSortedPixelBytes()
         {
             
 

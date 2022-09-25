@@ -10,9 +10,9 @@ namespace PixelSort.App
     {
         PixelSortViewModel pixelSortViewModel;
 
-        public MainWindow()
+        public MainWindow(PixelSortViewModel pixelSortViewModel)
         {
-            pixelSortViewModel = new PixelSortViewModel(1024, 768);
+            this.pixelSortViewModel = pixelSortViewModel;
             InitializeComponent();
         }
 

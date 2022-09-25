@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace PixelSort.Domain.Tests
@@ -9,7 +8,7 @@ namespace PixelSort.Domain.Tests
         [Fact]
         public void Test_IsSorted_Is_False_Initially()
         {
-            var vm = new PixelSortViewModel(4, 4);
+            var vm = new PixelSortViewModel(4, 4, new DeterministicTaskScheduler());
             Assert.False(vm.ArePixelsSorted());
         }
 
