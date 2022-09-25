@@ -1,6 +1,4 @@
-﻿using System;
-using System.Drawing;
-using System.Windows.Media.Imaging;
+﻿using System.Windows.Media.Imaging;
 using Xunit;
 namespace PixelSort.Domain.Tests.ExtensionsTests
 {

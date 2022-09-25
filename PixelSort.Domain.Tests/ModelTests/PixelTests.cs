@@ -51,11 +51,11 @@ namespace PixelSort.Domain.Tests.ModelTests
         [InlineData(0  , 255, 255, 255)]
         [InlineData(0  , 0  , 0  , 0  )]
         [InlineData(100, 100, 100, 100)]
-        public void Test_Pixel_HueValue_SameAs_GetHue_BitConverted_To_UInt32(
+        public void Test_Pixel_HueValue_SameAs_GetHue(
             int a, int r, int g, int b)
         {
             var color = Color.FromArgb(a, r, g, b);
-            var expected = BitConverter.ToUInt32(BitConverter.GetBytes(color.GetHue()), 0);
+            var expected = color.GetHue();
             var pixel = new Pixel(color);
 
             Assert.Equal(expected, pixel.Hue);

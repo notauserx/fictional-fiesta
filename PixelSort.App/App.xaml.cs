@@ -26,6 +26,7 @@ namespace PixelSort.App
             services.AddSingleton<IPixelConfiguraiton>
                 (s => PixelConfiguration.DefaultConfiguration());
 
+            services.AddScoped<IPixelSorter, BucketSortPixelSorter>();
 
             services.AddSingleton<MainWindow>();
             services.AddSingleton<PixelSortViewModel>();

@@ -11,13 +11,15 @@ namespace PixelSort.Domain
             Green = color.G;
             Blue = color.B;
             Alpha = color.A;
-            Hue = BitConverter.ToUInt32(BitConverter.GetBytes(color.GetHue()), 0);
+            // TODO :: can we defer this calculation when pixels are getting generated
+            // randomly, we only need this for sorting.
+            Hue = color.GetHue();
         }
         public byte Red { get; set; }
         public byte Green { get; set; }
         public byte Blue { get; set; }
         public byte Alpha { get; set; }
 
-        public uint Hue { get; set; }
+        public float Hue { get; set; }
     }
 }

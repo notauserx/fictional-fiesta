@@ -20,12 +20,14 @@ namespace PixelSort.Domain
         private readonly RandomPixelDataGenerator randomPixelDataGenerator;
 
         private readonly PixelConverter pixelConverter;
+        private readonly IPixelSorter pixelSorter;
 
 
         public PixelSortViewModel(
             IPixelConfiguraiton config,
             TaskScheduler taskScheduler,
             RandomPixelDataGenerator randomPixelDataGenerator,
+            IPixelSorter pixelSorter,
             PixelConverter pixelConverter)
         {
             dpi = config.Dpi;
@@ -36,7 +38,9 @@ namespace PixelSort.Domain
 
             uiTaskFactory = new TaskFactory(taskScheduler);
             this.randomPixelDataGenerator = randomPixelDataGenerator;
+            this.pixelSorter = pixelSorter;
             this.pixelConverter = pixelConverter;
+
         }
 
 
@@ -91,7 +95,7 @@ namespace PixelSort.Domain
 
         private void SortPixels()
         {
-            pixels = pixels.OrderBy(x => x.Hue).ToArray();
+            pixels = pixelSorter.GetSortedPixels(pixels);
         }
     }
 }

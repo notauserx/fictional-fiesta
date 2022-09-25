@@ -13,6 +13,7 @@ namespace PixelSort.Domain.Tests
                 pixelConfiuration,
                  taskScheduler,
                  new RandomPixelDataGenerator(),
+                 new BucketSortPixelSorter(),
                  new PixelConverter(pixelConfiuration));
         }
         [Fact]
