@@ -21,11 +21,21 @@ namespace PixelSort.Domain.Tests.Benchmarks
         {
             var randomPixels = new RandomPixelDataGenerator().GenerateRandomPixelData(width * height);
 
-            
-            var timeForBucketSort = getElapsedMiliSeconds(() => 
+
+            var timeForBucketSortScaled100 = getElapsedMiliSeconds(() =>
                 _ = new BucketSortPixelSorter().GetSortedPixels(randomPixels));
 
-            output.WriteLine($"Bucket sort Time for {width} and {height} = {timeForBucketSort}");
+            output.WriteLine($"Bucket sort scaled 100 Time for {width} and {height} = {timeForBucketSortScaled100}");
+
+            var timeForBucketSortScaled10 = getElapsedMiliSeconds(() =>
+                _ = new BucketSortPixelSorter(10).GetSortedPixels(randomPixels));
+
+            output.WriteLine($"Bucket sort scaled 10 Time for {width} and {height} = {timeForBucketSortScaled10}");
+
+            var timeForBucketSortScaled1 = getElapsedMiliSeconds(() =>
+                _ = new BucketSortPixelSorter(1).GetSortedPixels(randomPixels));
+
+            output.WriteLine($"Bucket sort scaled 1 Time for {width} and {height} = {timeForBucketSortScaled1}");
 
             var timeForLinqSort = getElapsedMiliSeconds(() =>
                 _ = new LinqOrderByPixelSorter().GetSortedPixels(randomPixels));
@@ -43,7 +53,6 @@ namespace PixelSort.Domain.Tests.Benchmarks
         {
             var watch = System.Diagnostics.Stopwatch.StartNew();
             action();
-            // the code that you want to measure comes here
             watch.Stop();
             return watch.ElapsedMilliseconds;
         }

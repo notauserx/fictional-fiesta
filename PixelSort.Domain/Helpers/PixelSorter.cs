@@ -28,18 +28,33 @@ namespace PixelSort.Domain
 
     public class BucketSortPixelSorter : IPixelSorter
     {
+        private int scalingFactor;
+
+        public BucketSortPixelSorter() : this(100)
+        {
+
+        }
+        public BucketSortPixelSorter(int scalingFactor)
+        {
+            this.scalingFactor = scalingFactor;
+        }
+        public void SerScalingFactor(int scalingFactor)
+        {
+            this.scalingFactor = scalingFactor;
+        }
         public Pixel[] GetSortedPixels(Pixel[] pixels)
         {
-            var pixelBuckets = PutPixelsInBuckets(pixels, 36000);
-            
+            var bucketSize = 360 * scalingFactor;
+            var pixelBuckets = PutPixelsInBuckets(pixels, bucketSize);
+
 
             return SortPixelsInBuckets(pixelBuckets).SelectMany(s => s).ToArray();
         }
 
-        public List<Pixel>[] SortPixelsInBuckets(List<Pixel>[] pixelBuckets)
+        internal List<Pixel>[] SortPixelsInBuckets(List<Pixel>[] pixelBuckets)
         {
-            
-            foreach(var pixelBucket in pixelBuckets)
+
+            foreach (var pixelBucket in pixelBuckets)
             {
                 pixelBucket.Sort((a, b) => a.Hue.CompareTo(b.Hue));
             }
@@ -47,7 +62,7 @@ namespace PixelSort.Domain
             return pixelBuckets;
         }
 
-        public List<Pixel>[] PutPixelsInBuckets(Pixel[] pixels, int numberOfBuckets)
+        internal List<Pixel>[] PutPixelsInBuckets(Pixel[] pixels, int numberOfBuckets)
         {
             List<Pixel>[] pixelBuckets = new List<Pixel>[numberOfBuckets];
 
@@ -56,10 +71,10 @@ namespace PixelSort.Domain
 
             foreach (var pixel in pixels)
             {
-                var bucketIndex = (int)(pixel.Hue * 100);
+                var bucketIndex = (int)(pixel.Hue * scalingFactor);
                 pixelBuckets[bucketIndex].Add(pixel);
             }
-            
+
             return pixelBuckets;
         }
     }
