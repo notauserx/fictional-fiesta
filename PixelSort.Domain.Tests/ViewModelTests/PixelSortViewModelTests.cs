@@ -21,7 +21,6 @@ namespace PixelSort.Domain.Tests
 
             taskScheduler.RunTasksUntilIdle();
 
-
             Assert.False(vm.ArePixelsSorted());
         }
 
