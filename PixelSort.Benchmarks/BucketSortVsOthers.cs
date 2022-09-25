@@ -4,26 +4,46 @@ using System.Collections.Generic;
 
 namespace PixelSort.Benchmarks
 {
+    [MarkdownExporter, AsciiDocExporter, RPlotExporter]
     public class BucketSortVsOthers
     {
-
-        public IEnumerable<Pixel[]> Data()
+        IEnumerable<Pixel[]> data;
+        public BucketSortVsOthers()
         {
-            yield return
-                new RandomPixelDataGenerator().GenerateRandomPixelData(400 * 300);
-            yield return
-                new RandomPixelDataGenerator().GenerateRandomPixelData(1024 * 768);
-            yield return
-                new RandomPixelDataGenerator().GenerateRandomPixelData(1920 * 1080);
+            data = new List<Pixel[]>()
+            {
+                new RandomPixelDataGenerator().GenerateRandomPixelData(400  * 300),
+                new RandomPixelDataGenerator().GenerateRandomPixelData(1024 * 768),
+                new RandomPixelDataGenerator().GenerateRandomPixelData(1920 * 1080)
+            };
+        }
 
+        public IEnumerable<Pixel[]> Data() => data;
+
+        [Benchmark]
+        [ArgumentsSource(nameof(Data))]
+        public Pixel[] BucketSortScaled100(Pixel[] pixels)
+        {
+
+            var sorter = new BucketSortPixelSorter();
+            return sorter.GetSortedPixels(pixels);
         }
 
         [Benchmark]
         [ArgumentsSource(nameof(Data))]
-        public Pixel[] BucketSort(Pixel[] pixels)
+        public Pixel[] BucketSortScaled10(Pixel[] pixels)
         {
 
-            var sorter = new BucketSortPixelSorter();
+            var sorter = new BucketSortPixelSorter(10);
+            return sorter.GetSortedPixels(pixels);
+        }
+
+        [Benchmark]
+        [ArgumentsSource(nameof(Data))]
+        public Pixel[] BucketSortScaled1(Pixel[] pixels)
+        {
+
+            var sorter = new BucketSortPixelSorter(1);
             return sorter.GetSortedPixels(pixels);
         }
 

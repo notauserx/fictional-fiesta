@@ -74,6 +74,7 @@ The solution is divided into three projects
 - The randomly generated pixels are created from first creating random RGBA values that is used to create a Color class. Then Pixels are created from a Color class instance. This has the benefit of using GetHue() method on the Color class to calculate the Hue value.
 
 - The GetHue() methods returns Hue as Float type. Hue is a value from 0 degree to 360 degree. Knowing this information, I have used bucket sort to implement the sorting. On the benchmarks it clearly outsmarts the comparison based sorting algorithms. 
+	- I have run some benchmarks, look [here](BucketSortVsOthers-report-default.md)
 
 - The Color Sorting button click handler first checks if the pixels are populated before attempting to sort them.
 
@@ -84,8 +85,6 @@ The solution is divided into three projects
 # TODO 
 
 - Add logging
-
-- Add a benchmark project using BenchmarkDotNet
 
 - Currently when generating random pixels, the Hue values are also getting generated. Find an implementation where this calculation can be deferred or offloaded to a seperate thread.
 
