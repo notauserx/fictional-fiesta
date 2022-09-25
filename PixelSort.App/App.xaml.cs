@@ -24,7 +24,7 @@ namespace PixelSort.App
         private void ConfigureServices(ServiceCollection services)
         {
             services.AddSingleton<IPixelConfiguraiton>
-                (s => PixelConfiguration.DefaultConfiguration());
+                (s => PixelConfiguration.HighPixelConfiguration());
 
             services.AddScoped<IPixelSorter, BucketSortPixelSorter>();
 

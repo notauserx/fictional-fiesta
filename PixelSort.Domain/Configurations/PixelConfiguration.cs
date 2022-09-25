@@ -22,5 +22,10 @@
         {
             return new PixelConfiguration(1024, 768, 4, 96);
         }
+
+        public static PixelConfiguration HighPixelConfiguration()
+        {
+            return new PixelConfiguration(1920, 1080, 4, 96);
+        }
     }
 }
