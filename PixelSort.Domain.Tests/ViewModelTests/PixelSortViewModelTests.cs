@@ -26,6 +26,16 @@ namespace PixelSort.Domain.Tests
         }
 
         [Fact]
+        public void Test_Constructor_creates_WritableBitMap()
+        {
+            var taskScheduler = new DeterministicTaskScheduler();
+
+            var vm = getViewModel(4, 4, taskScheduler);
+
+            Assert.NotNull(vm.WriteableBitmap);
+        }
+
+        [Fact]
         public void Test_IsSorted_Is_False_After_UpdateBackBufferWithRandomPixelData()
         {
             var taskScheduler = new DeterministicTaskScheduler();
