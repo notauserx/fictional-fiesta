@@ -61,7 +61,7 @@ The solution is divided into three projects
 
 # Design decisions
 
--  I have used WritableBitmapSource to generate the image source. This class has a back buffer where the pixel informations are populated
+- I have used WritableBitmapSource to generate the image source. This class has a back buffer where the pixel informations are populated
 
 - I have uses a TashFactory class to run the methods that generate random pixels and sorts them.
 
@@ -73,13 +73,21 @@ The solution is divided into three projects
 
 - The randomly generated pixels are created from first creating random RGBA values that is used to create a Color class. Then Pixels are created from a Color class instance. This has the benefit of using GetHue() method on the Color class to calculate the Hue value.
 
-- The GetHue() methods returns Hue as Float type. The pixel class stores in as uint with BitConverter. This way it will be possible to use non-comparison based sorting algorithms likr Radix or Bucket sort.
+- The GetHue() methods returns Hue as Float type. Hue is a value from 0 degree to 360 degree. Knowing this information, I have used bucket sort to implement the sorting. On the benchmarks it clearly outsmarts the comparison based sorting algorithms. 
 
 - The Color Sorting button click handler first checks if the pixels are populated before attempting to sort them.
 
 - If the pixels are already sorted, clicking the Color Sorting button will not sort the pixels again.
 
-- I have notices the sorted image to be flipped 90 degrees to the left. To render this transformation, the PixelConverter class arranges the bytes from the sorted pixels in column first manner. The GetTransposedPixelsFromArgbColors method does this job.
+- I have noticed the sorted image to be flipped 90 degrees to the left. To render this transformation, the PixelConverter class arranges the bytes from the sorted pixels in column first manner. The GetTransposedPixelsFromArgbColors method does this job.
+
+# TODO 
+
+- Add logging
+
+- Add a benchmark project using BenchmarkDotNet
+
+- Currently when generating random pixels, the Hue values are also getting generated. Find an implementation where this calculation can be deferred or offloaded to a seperate thread.
 
 # License
 
