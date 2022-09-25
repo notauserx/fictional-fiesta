@@ -7,7 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PixelSort.App", "PixelSort.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PixelSort.Domain", "PixelSort.Domain\PixelSort.Domain.csproj", "{503C2CAF-7B1B-488F-B7FE-8F82B625D9F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelSort.Domain.Tests", "PixelSort.Domain.Tests\PixelSort.Domain.Tests.csproj", "{9EDFD3B3-CEA2-4032-BADC-1DB555AD4AEF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PixelSort.Domain.Tests", "PixelSort.Domain.Tests\PixelSort.Domain.Tests.csproj", "{9EDFD3B3-CEA2-4032-BADC-1DB555AD4AEF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BCD6C229-0DEA-48BC-A5A4-AD22BBC4EB52}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
