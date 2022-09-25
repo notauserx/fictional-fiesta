@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PixelSort.App"
         mc:Ignorable="d"
-        Title="MainWindow" 
+        Title="Pixel Sort" 
         Height="450" 
-        Width="450"
+        Width="410"
         ResizeMode="NoResize">
     <Grid>
         <Grid.ColumnDefinitions>
