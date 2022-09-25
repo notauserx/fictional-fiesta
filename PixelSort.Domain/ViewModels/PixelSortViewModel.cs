@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -53,7 +51,7 @@ namespace PixelSort.Domain
         public void UpdateBackBufferWithRandomPixelData()
         {
             uiTaskFactory.StartNew(() =>            
-                CopyBytesToBackBuffer(GetRandomPixelBytes())
+                wb.CopyBytesToBackBuffer(GetRandomPixelBytes())
             );
         }
 
@@ -65,31 +63,10 @@ namespace PixelSort.Domain
             }
             
             uiTaskFactory.StartNew(() =>
-                CopyBytesToBackBuffer(GetSortedPixelBytes())
+                wb.CopyBytesToBackBuffer(GetSortedPixelBytes())
             );
         }
-
-
-        private void CopyBytesToBackBuffer(byte[] buffer)
-        {
-            // lock on UI thread
-            wb.Lock();
-
-            // we have to copy this because it must only be accessed from the UI thread
-            IntPtr backBuffer = wb.BackBuffer;
-
-            System.Diagnostics.Debug.Assert(backBuffer != IntPtr.Zero);
-
-            // update on this thread
-            Marshal.Copy(buffer, 0, backBuffer, buffer.Length);
-
-            wb.AddDirtyRect(
-                new Int32Rect(0, 0,
-                wb.PixelWidth,
-                wb.PixelHeight));
-
-            wb.Unlock();
-        }
+        
 
         private byte[] GetRandomPixelBytes()
         {
