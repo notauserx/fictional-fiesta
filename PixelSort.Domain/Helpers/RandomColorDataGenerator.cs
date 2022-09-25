@@ -4,30 +4,11 @@ using System.Threading.Tasks;
 
 namespace PixelSort.Domain
 {
-    public class RandomColorDataGenerator
+    public class RandomPixelDataGenerator
     {
         private static readonly Random _random = new Random();
-        private static int BYTE_LIMIT = 256;
+        private static readonly int BYTE_LIMIT = 256;
 
-        public static Color[] GenerateRandomColorData(int width, int height)
-        {
-            Color[] colors = new Color[width * height];
-            var index = 0;
-            for (int row = 0; row < height; row++)
-            {
-                for (int column = 0; column < width; column++)
-                {
-                    colors[index++] =
-                        Color.FromArgb(
-                            getRandomByte(),
-                            getRandomByte(),
-                            getRandomByte(),
-                            getRandomByte());
-                }
-            }
-
-            return colors;
-        }
 
         public static Pixel[] GenerateRandomPixelData(int count)
         {

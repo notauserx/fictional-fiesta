@@ -80,7 +80,7 @@ namespace PixelSort.Domain
 
         private byte[] getRandomPixelBytes()
         {
-            pixels = RandomColorDataGenerator.GenerateRandomPixelData(width * height);
+            pixels = RandomPixelDataGenerator.GenerateRandomPixelData(width * height);
             isSorted = false;
 
             return new PixelConverter(width, height)
