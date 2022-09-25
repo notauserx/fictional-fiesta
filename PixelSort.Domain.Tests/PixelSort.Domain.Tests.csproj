@@ -23,4 +23,8 @@
     <ProjectReference Include="..\PixelSort.Domain\PixelSort.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="HelperTests\" />
+  </ItemGroup>
+
 </Project>

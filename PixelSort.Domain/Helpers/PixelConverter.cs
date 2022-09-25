@@ -2,32 +2,27 @@
 {
     public class PixelConverter
     {
-        private int height;
-        private int width;
-        private int pixelSize;
+        private readonly IPixelConfiguraiton config;
 
-        public PixelConverter(int width, int height)
+        public PixelConverter(IPixelConfiguraiton pixelConfiguraiton)
         {
-            this.width = width;
-            this.height = height;
-
-            pixelSize = 4; 
+            config = pixelConfiguraiton;
         }
 
         public byte[] GetTransposedPixelsFromArgbColors(Pixel[] pixels)
         {
-            var pixelData = new byte[height * width * pixelSize];
+            var pixelData = new byte[config.Height * config.Width * config.PixelSize];
 
             var row = 0;
             var col = 0;
             foreach (var pixel in pixels)
             {
-                if (row == height)
+                if (row == config.Height)
                 {
                     row = 0;
                     col++;
                 }
-                var rotatedIndex = row * width * pixelSize + col * pixelSize;
+                var rotatedIndex = row * config.Width * config.PixelSize + col * config.PixelSize;
 
                 pixelData[rotatedIndex]     = pixel.Blue;   // Blue
                 pixelData[rotatedIndex + 1] = pixel.Green;  // Green

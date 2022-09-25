@@ -1,16 +1,22 @@
 ﻿using System;
 using System.Drawing;
-using System.Threading.Tasks;
 
 namespace PixelSort.Domain
 {
-    public class RandomPixelDataGenerator
+    public  class RandomPixelDataGenerator
     {
-        private static readonly Random _random = new Random();
-        private static readonly int BYTE_LIMIT = 256;
+        private readonly Random _random;
+        private readonly int BYTE_LIMIT = 256;
 
+        public  RandomPixelDataGenerator() 
+            : this(new Random()) { }
 
-        public static Pixel[] GenerateRandomPixelData(int count)
+        public RandomPixelDataGenerator(Random random)
+        {
+            _random = random;
+        }
+        
+        public Pixel[] GenerateRandomPixelData(int count)
         {
             var pixels = new Pixel[count];
             for (int i = 0; i < count; i++)
@@ -20,7 +26,7 @@ namespace PixelSort.Domain
             return pixels;
         }
 
-        private static Pixel getRandomPixel()
+        private Pixel getRandomPixel()
         {
             return new Pixel(
                 Color.FromArgb(
@@ -30,7 +36,7 @@ namespace PixelSort.Domain
                     getRandomByte()));
         }
 
-        private static int getRandomByte()
+        private int getRandomByte()
         {
             return _random.Next(BYTE_LIMIT);
         }

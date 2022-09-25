@@ -19,27 +19,34 @@ namespace PixelSort.Domain
         private bool isSorted;
 
         private readonly TaskFactory uiTaskFactory;
+        private readonly RandomPixelDataGenerator randomPixelDataGenerator;
 
-        
-        public PixelSortViewModel(TaskScheduler taskScheduler) 
-            : this(1024, 768, taskScheduler) { }
+        private readonly PixelConverter pixelConverter;
 
 
-        public PixelSortViewModel(int width, int height, TaskScheduler taskScheduler)
+        public PixelSortViewModel(
+            IPixelConfiguraiton config,
+            TaskScheduler taskScheduler,
+            RandomPixelDataGenerator randomPixelDataGenerator,
+            PixelConverter pixelConverter)
         {
-            dpi = 96;
-            this.width = width;
-            this.height = height;
+            dpi = config.Dpi;
+            width = config.Width;
+            height = config.Height;
 
             wb = new WriteableBitmap(width, height, dpi, dpi, PixelFormats.Bgr32, null);
 
             uiTaskFactory = new TaskFactory(taskScheduler);
+            this.randomPixelDataGenerator = randomPixelDataGenerator;
+            this.pixelConverter = pixelConverter;
         }
 
-        
+
 
         public WriteableBitmap WriteableBitmap { get => wb; }
+
         public bool ArePixelsEmpty() => pixels is null;
+
         public bool ArePixelsSorted() => isSorted;
 
 
@@ -62,6 +69,7 @@ namespace PixelSort.Domain
             );
         }
 
+
         private void CopyBytesToBackBuffer(byte[] buffer)
         {
             // lock on UI thread
@@ -79,30 +87,28 @@ namespace PixelSort.Domain
                 new Int32Rect(0, 0,
                 wb.PixelWidth,
                 wb.PixelHeight));
-            wb.Unlock();
 
+            wb.Unlock();
         }
 
         private byte[] GetRandomPixelBytes()
         {
-            pixels = RandomPixelDataGenerator.GenerateRandomPixelData(width * height);
+            pixels = randomPixelDataGenerator.GenerateRandomPixelData(width * height);
             isSorted = false;
 
-            return new PixelConverter(width, height)
+            return pixelConverter
                 .GetTransposedPixelsFromArgbColors(pixels);
         }
 
         private byte[] GetSortedPixelBytes()
         {
-            
-
             if (isSorted is false)
             {
                 SortPixels();
                 isSorted = true;
             }
 
-            return new PixelConverter(width, height)
+            return pixelConverter
                 .GetTransposedPixelsFromArgbColors(pixels);
         }
 

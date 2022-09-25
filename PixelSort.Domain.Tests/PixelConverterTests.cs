@@ -14,7 +14,7 @@ namespace PixelSort.Domain.Tests
         public void Test_PixelArraySize_From_GetTransposedPixelsFromArgbColors(
             int width, int height, int expectedSize)
         {
-            var converter = new PixelConverter(width, height);
+            var converter = new PixelConverter(new PixelConfiguration(width, height, 4, 96));
 
             var colors = new Color[width * height];
             var pixels = colors.Select(c => new Pixel(c)).ToArray();
@@ -33,7 +33,7 @@ namespace PixelSort.Domain.Tests
         [Fact]
         public void Test_GetTransposedPixelsFromArgbColors_Arranges_Pixels_Correctly()
         {
-            var converter = new PixelConverter(4, 3);
+            var converter = new PixelConverter(new PixelConfiguration(4, 3, 4, 96));
 
             var colors = new Color[]
             {
@@ -50,7 +50,6 @@ namespace PixelSort.Domain.Tests
             var expected = new byte[]
             {
                 Color.Aqua.B,Color.Aqua.G,Color.Aqua.R,Color.Aqua.A,
-
                 Color.Blue.B,Color.Blue.G,Color.Blue.R,Color.Blue.A,
                 Color.Orange.B, Color.Orange.G, Color.Orange.R,Color.Orange.A,
                 Color.Orchid.B,Color.Orchid.G,Color.Orchid.R,Color.Orchid.A,
@@ -67,10 +66,7 @@ namespace PixelSort.Domain.Tests
                 Color.Orchid.B,Color.Orchid.G,Color.Orchid.R,Color.Orchid.A,
             };
 
-            for (var i = 0; i < expected.Length; i++)
-            {
-                Assert.Equal(expected[i], actual[i]);
-            }
+            Assert.Equal(expected, actual);
 
         }
     }
