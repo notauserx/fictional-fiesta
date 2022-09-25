@@ -16,5 +16,22 @@ namespace PixelSort.Domain.Tests.HelperTests
 
             Assert.Equal(expected, sorted);
         }
+
+        [Theory]
+        [InlineData(100)]
+        [InlineData(50)]
+        [InlineData(10)]
+        [InlineData(1)]
+        public void Test_BucketSort_With_ScalingFactors(int scalingFactor)
+        {
+            var randomPixels = new RandomPixelDataGenerator().GenerateRandomPixelData(100);
+
+            var sorted = new BucketSortPixelSorter(scalingFactor).GetSortedPixels(randomPixels);
+
+            var expected = randomPixels.OrderBy(x => x.Hue);
+
+            Assert.Equal(expected, sorted);
+        }
+
     }
 }
