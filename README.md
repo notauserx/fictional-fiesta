@@ -74,13 +74,25 @@ The solution is divided into three projects
 - The randomly generated pixels are created from first creating random RGBA values that is used to create a Color class. Then Pixels are created from a Color class instance. This has the benefit of using GetHue() method on the Color class to calculate the Hue value.
 
 - The GetHue() methods returns Hue as Float type. Hue is a value from 0 degree to 360 degree. Knowing this information, I have used bucket sort to implement the sorting. On the benchmarks it clearly outsmarts the comparison based sorting algorithms. 
-	- I have run some benchmarks, look [here](BucketSortVsOthers-report-default.md)
+	
+- I have run some benchmarks, look [here](BucketSortVsOthers-report-github.md)
 
 - The Color Sorting button click handler first checks if the pixels are populated before attempting to sort them.
 
 - If the pixels are already sorted, clicking the Color Sorting button will not sort the pixels again.
 
 - I have noticed the sorted image to be flipped 90 degrees to the left. To render this transformation, the PixelConverter class arranges the bytes from the sorted pixels in column first manner. The GetTransposedPixelsFromArgbColors method does this job.
+
+# Running the benchmarks
+
+- Set PixelSort.Benchmarks as startup project in Visual studio.
+- Use Release configuration.
+- Start the project with ctrl + F5
+- The results will be in the following directory
+
+```
+PixelSort.Benchmarks\bin\Release\netcoreapp3.1\BenchmarkDotNet.Artifacts\results
+```
 
 # TODO 
 
