@@ -25,10 +25,7 @@
 
         public bool ArePixelsEmpty() => pixels is null;
 
-        public bool ArePixelsSorted()
-        {
-            return isSorted;
-        }
+        public bool ArePixelsSorted() => isSorted;
 
         public Pixel[] GenerateRandomPixelData(int count)
         {
