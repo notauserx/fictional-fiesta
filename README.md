@@ -1,4 +1,5 @@
 # Pixel Sort
+![Line coverage](badge_linecoverage.png)
 
 A Proof of concept WPF application that generates random pixels and then sorts them based on the hue value.
 
@@ -57,6 +58,7 @@ The solution is divided into three projects
 	- houses the application logic
 - PixelSort.Doamin.Tests
 	- xUnit project that contains the test for PixelSort.Domain
+	- View the code coverage report [here](code-coverage-summary.md)
 
 
 # Design decisions
