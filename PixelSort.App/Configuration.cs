@@ -29,7 +29,7 @@ namespace PixelSort.App
         private static void InitializeHelpers(ServiceCollection services)
         {
             services.AddScoped<IPixelSorter, BucketSortPixelSorter>();
-            services.AddSingleton<RandomPixelDataGenerator>();
+            services.AddSingleton<RandomPixelGenerator>();
             services.AddSingleton<PixelConverter>();
         }
 

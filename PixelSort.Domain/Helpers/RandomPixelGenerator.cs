@@ -3,15 +3,15 @@ using System.Drawing;
 
 namespace PixelSort.Domain
 {
-    public  class RandomPixelDataGenerator
+    public  class RandomPixelGenerator
     {
         private readonly Random _random;
         private readonly int BYTE_LIMIT = 256;
 
-        public  RandomPixelDataGenerator() 
+        public  RandomPixelGenerator() 
             : this(new Random()) { }
 
-        public RandomPixelDataGenerator(Random random)
+        public RandomPixelGenerator(Random random)
         {
             _random = random;
         }

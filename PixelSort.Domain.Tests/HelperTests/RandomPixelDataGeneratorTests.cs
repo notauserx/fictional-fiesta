@@ -7,7 +7,7 @@ namespace PixelSort.Domain.Tests.HelperTests
         [Fact]
         public void Test_Random_Pixel_Is_Not_Null()
         {
-            var generator = new RandomPixelDataGenerator();
+            var generator = new RandomPixelGenerator();
 
             var pixel = generator.GetRandomPixel();
 

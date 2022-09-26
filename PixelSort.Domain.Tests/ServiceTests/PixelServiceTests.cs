@@ -7,7 +7,7 @@ namespace PixelSort.Domain.Tests.Services
         private IPixelService GetPixelService()
         {
             IPixelService service = new PixelService(
-                new RandomPixelDataGenerator(),
+                new RandomPixelGenerator(),
                 new BucketSortPixelSorter());
 
             return service;

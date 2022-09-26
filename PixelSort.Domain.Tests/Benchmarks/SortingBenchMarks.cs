@@ -19,7 +19,7 @@ namespace PixelSort.Domain.Tests.Benchmarks
         [InlineData(1920, 1080)]
         public void Compare_Sorting_Times(int width, int height)
         {
-            var randomPixels = new RandomPixelDataGenerator().GenerateRandomPixelData(width * height);
+            var randomPixels = new RandomPixelGenerator().GenerateRandomPixelData(width * height);
 
 
             var timeForBucketSortScaled100 = getElapsedMiliSeconds(() =>

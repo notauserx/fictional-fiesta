@@ -10,7 +10,7 @@ namespace PixelSort.Domain.Tests
         {
             var pixelConfiuration = new PixelConfiguration(width, height, 4, 96);
             var pixelService = new PixelService(
-                new RandomPixelDataGenerator(),
+                new RandomPixelGenerator(),
                  new BucketSortPixelSorter());
 
             var bitmapService = new WriteableBitmapService(pixelConfiuration,

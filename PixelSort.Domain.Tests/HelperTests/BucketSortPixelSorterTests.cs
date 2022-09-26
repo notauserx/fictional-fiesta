@@ -8,7 +8,7 @@ namespace PixelSort.Domain.Tests.HelperTests
         [Fact]
         public void Test_BucketSort_On_RandomPixels()
         {
-            var randomPixels = new RandomPixelDataGenerator().GenerateRandomPixelData(100);
+            var randomPixels = new RandomPixelGenerator().GenerateRandomPixelData(100);
 
             var sorted = new BucketSortPixelSorter().GetSortedPixels(randomPixels);
 
@@ -24,7 +24,7 @@ namespace PixelSort.Domain.Tests.HelperTests
         [InlineData(1)]
         public void Test_BucketSort_With_ScalingFactors(int scalingFactor)
         {
-            var randomPixels = new RandomPixelDataGenerator().GenerateRandomPixelData(100);
+            var randomPixels = new RandomPixelGenerator().GenerateRandomPixelData(100);
 
             var sorted = new BucketSortPixelSorter(scalingFactor).GetSortedPixels(randomPixels);
 

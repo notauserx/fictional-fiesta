@@ -2,15 +2,15 @@
 {
     public class PixelService : IPixelService
     {
-        private readonly RandomPixelDataGenerator randomPixelGenerator;
+        private readonly RandomPixelGenerator randomPixelGenerator;
         private readonly IPixelSorter pixelSorter;
 
         private Pixel[] pixels;
         private bool isSorted;
 
-        public PixelService(RandomPixelDataGenerator randomPixelDataGenerator, IPixelSorter pixelSorter)
+        public PixelService(RandomPixelGenerator randomPixelGenerator, IPixelSorter pixelSorter)
         {
-            randomPixelGenerator = randomPixelDataGenerator;
+            this.randomPixelGenerator = randomPixelGenerator;
             this.pixelSorter = pixelSorter;
 
             isSorted = false;

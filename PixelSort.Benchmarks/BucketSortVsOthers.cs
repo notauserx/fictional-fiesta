@@ -12,9 +12,9 @@ namespace PixelSort.Benchmarks
         {
             data = new List<Pixel[]>()
             {
-                new RandomPixelDataGenerator().GenerateRandomPixelData(400  * 300),
-                new RandomPixelDataGenerator().GenerateRandomPixelData(1024 * 768),
-                new RandomPixelDataGenerator().GenerateRandomPixelData(1920 * 1080)
+                new RandomPixelGenerator().GenerateRandomPixelData(400  * 300),
+                new RandomPixelGenerator().GenerateRandomPixelData(1024 * 768),
+                new RandomPixelGenerator().GenerateRandomPixelData(1920 * 1080)
             };
         }
 
