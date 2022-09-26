@@ -12,10 +12,13 @@ namespace PixelSort.Domain.Tests
             var pixelService = new PixelService(
                 new RandomPixelDataGenerator(),
                  new BucketSortPixelSorter());
+
+            var bitmapService = new WriteableBitmapService(pixelConfiuration,
+                new PixelConverter());
+
             return new PixelSortViewModel(
-                pixelConfiuration,
                  taskScheduler,
-                 new PixelConverter(pixelConfiuration),
+                 bitmapService,
                  pixelService);
         }
         [Fact]

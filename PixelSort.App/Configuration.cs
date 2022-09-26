@@ -36,6 +36,7 @@ namespace PixelSort.App
         private static void InitializeServices(ServiceCollection services)
         {
             services.AddScoped<IPixelService, PixelService>();
+            services.AddSingleton<WriteableBitmapService>();
 
         }
 

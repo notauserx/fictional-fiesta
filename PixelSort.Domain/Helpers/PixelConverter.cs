@@ -2,14 +2,7 @@
 {
     public class PixelConverter
     {
-        private readonly IPixelConfiguraiton config;
-
-        public PixelConverter(IPixelConfiguraiton pixelConfiguraiton)
-        {
-            config = pixelConfiguraiton;
-        }
-
-        public byte[] GetTransposedPixelsFromArgbColors(Pixel[] pixels)
+        public byte[] GetTransposedPixelsFromArgbColors(Pixel[] pixels, IPixelConfiguraiton config)
         {
             var pixelData = new byte[config.Height * config.Width * config.PixelSize];
 
