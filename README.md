@@ -67,6 +67,8 @@ The solution is divided into three projects
 
 - I have used Microsoft.Extensions.DependencyInjection nuget package to set up DI containers.
 
+- xUnit was used as a the unit testing framework
+
 - The PixelSortviewModel acts as a controller for the view.
 
 - The Pixel class is the model. 
@@ -82,6 +84,8 @@ The solution is divided into three projects
 - If the pixels are already sorted, clicking the Color Sorting button will not sort the pixels again.
 
 - I have noticed the sorted image to be flipped 90 degrees to the left. To render this transformation, the PixelConverter class arranges the bytes from the sorted pixels in column first manner. The GetTransposedPixelsFromArgbColors method does this job.
+
+- Pixelconfiguration class has two static methods DefaultConfiguration and HighPixelConfiguration that sets up the resolution for the image.
 
 # Running the benchmarks
 
@@ -99,6 +103,8 @@ PixelSort.Benchmarks\bin\Release\netcoreapp3.1\BenchmarkDotNet.Artifacts\results
 - Add logging
 
 - Currently when generating random pixels, the Hue values are also getting generated. Find an implementation where this calculation can be deferred or offloaded to a seperate thread.
+
+- Use a priority queue to store items inside a bucket. Will require the projects to be updated to .NET 6.0 since it has introduced the Priority Queue class.
 
 # License
 
