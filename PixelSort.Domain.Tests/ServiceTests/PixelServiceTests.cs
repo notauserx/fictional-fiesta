@@ -48,5 +48,49 @@ namespace PixelSort.Domain.Tests.Services
             Assert.False(service.ArePixelsEmpty());
 
         }
+
+        [Fact]
+        public void Test_Pixels_Are_Not_Sorted_After_GenerateRandomPixelData()
+        {
+            var service = GetPixelService();
+
+            Assert.True(service.ArePixelsEmpty());
+
+            service.GenerateRandomPixelData(10);
+            Assert.False(service.ArePixelsSorted());
+
+        }
+
+        [Fact]
+        public void Test_Pixels_Are_Sorted_After_GetSortedPixels()
+        {
+            var service = GetPixelService();
+
+            Assert.True(service.ArePixelsEmpty());
+
+            service.GenerateRandomPixelData(10);
+            Assert.False(service.ArePixelsSorted());
+
+            service.GetSortedPixels();
+            Assert.True(service.ArePixelsSorted());
+
+        }
+
+        [Fact]
+        public void Test_Pixels_Are_Not_Sorted_When_GenerateRandomPixelData_is_called_again()
+        {
+            var service = GetPixelService();
+
+            Assert.True(service.ArePixelsEmpty());
+
+            service.GenerateRandomPixelData(10);
+            Assert.False(service.ArePixelsSorted());
+
+            service.GetSortedPixels();
+            Assert.True(service.ArePixelsSorted());
+
+            service.GenerateRandomPixelData(10);
+            Assert.False(service.ArePixelsSorted());
+        }
     }
 }

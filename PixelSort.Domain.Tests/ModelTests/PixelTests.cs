@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using Xunit;
 
 namespace PixelSort.Domain.Tests.ModelTests
@@ -59,6 +58,23 @@ namespace PixelSort.Domain.Tests.ModelTests
             var pixel = new Pixel(color);
 
             Assert.Equal(expected, pixel.Hue);
+        }
+
+        [Theory]
+        [InlineData(255, 255, 255, 255)]
+        [InlineData(255, 255, 255, 0)]
+        [InlineData(255, 255, 0, 255)]
+        [InlineData(255, 0, 255, 255)]
+        [InlineData(0, 255, 255, 255)]
+        [InlineData(0, 0, 0, 0)]
+        [InlineData(100, 100, 100, 100)]
+        public void Test_Hue_is_between_0_and_360(int a, int r, int g, int b)
+        {
+            var color = Color.FromArgb(a, r, g, b);
+            var expected = color.GetHue();
+
+            Assert.True(expected >= 0);
+            Assert.True(expected <= 360f);
         }
     }
 }
