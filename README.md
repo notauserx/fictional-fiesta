@@ -100,6 +100,18 @@ The solution is divided into three projects
 PixelSort.Benchmarks\bin\Release\netcoreapp3.1\BenchmarkDotNet.Artifacts\results
 ```
 
+# Generating coverage report
+
+- Make sure dotnet-reportgenerator-globaltool is installed details [here](https://www.nuget.org/packages/dotnet-reportgenerator-globaltool)
+- Genrate coverate report using coverlet
+```powershell
+dotnet test --collect:"XPlat Code Coverage"
+```
+- run the following, specify the path to the .xml 
+```powershell
+ reportgenerator "-reports:*.xml" "-targetdir:C:\report" -reporttypes:MarkdownSummary
+```
+
 # TODO 
 
 - Add logging
