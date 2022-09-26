@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -9,26 +8,22 @@ namespace PixelSort.Domain
     public class PixelSortViewModel
     {
         readonly WriteableBitmap wb;
-        private Pixel[] pixels;
 
         private int width;
         private int height;
         private int dpi;
-        private bool isSorted;
 
         private readonly TaskFactory uiTaskFactory;
-        private readonly RandomPixelDataGenerator randomPixelDataGenerator;
-
         private readonly PixelConverter pixelConverter;
-        private readonly IPixelSorter pixelSorter;
+        
+        private readonly IPixelService pixelService;
 
 
         public PixelSortViewModel(
             IPixelConfiguraiton config,
             TaskScheduler taskScheduler,
-            RandomPixelDataGenerator randomPixelDataGenerator,
-            IPixelSorter pixelSorter,
-            PixelConverter pixelConverter)
+            PixelConverter pixelConverter,
+            IPixelService pixelService)
         {
             dpi = config.Dpi;
             width = config.Width;
@@ -37,8 +32,7 @@ namespace PixelSort.Domain
             wb = new WriteableBitmap(width, height, dpi, dpi, PixelFormats.Bgr32, null);
 
             uiTaskFactory = new TaskFactory(taskScheduler);
-            this.randomPixelDataGenerator = randomPixelDataGenerator;
-            this.pixelSorter = pixelSorter;
+            this.pixelService = pixelService;
             this.pixelConverter = pixelConverter;
 
         }
@@ -47,9 +41,8 @@ namespace PixelSort.Domain
 
         public WriteableBitmap WriteableBitmap { get => wb; }
 
-        public bool ArePixelsEmpty() => pixels is null;
-
-        public bool ArePixelsSorted() => isSorted;
+        public bool ArePixelsSorted() => pixelService.ArePixelsSorted();
+        public bool ArePixelsEmpty() => pixelService.ArePixelsEmpty();
 
 
         public void UpdateBackBufferWithRandomPixelData()
@@ -61,7 +54,7 @@ namespace PixelSort.Domain
 
         public void UpdateBackBufferWithSortedPixelData()
         {
-            if (pixels is null)
+            if (pixelService.ArePixelsEmpty())
             {
                 throw new Exception("Can not sort pixels before pixels are generated.");
             }
@@ -74,28 +67,17 @@ namespace PixelSort.Domain
 
         private byte[] GetRandomPixelBytes()
         {
-            pixels = randomPixelDataGenerator.GenerateRandomPixelData(width * height);
-            isSorted = false;
-
             return pixelConverter
-                .GetTransposedPixelsFromArgbColors(pixels);
+                .GetTransposedPixelsFromArgbColors(
+                    pixelService.GenerateRandomPixelData(width * height));
         }
 
         private byte[] GetSortedPixelBytes()
         {
-            if (isSorted is false)
-            {
-                SortPixels();
-                isSorted = true;
-            }
-
             return pixelConverter
-                .GetTransposedPixelsFromArgbColors(pixels);
+                .GetTransposedPixelsFromArgbColors(pixelService.GetSortedPixels());
         }
 
-        private void SortPixels()
-        {
-            pixels = pixelSorter.GetSortedPixels(pixels);
-        }
+       
     }
 }

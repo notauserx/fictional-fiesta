@@ -28,6 +28,10 @@ namespace PixelSort.App
             {
                 // TODO :: display error message to the user.
             }
+            else if (pixelSortViewModel.ArePixelsSorted())
+            {
+                // TODO :: display message to the user.
+            }
             else
             {
                 pixelSortViewModel.UpdateBackBufferWithSortedPixelData();

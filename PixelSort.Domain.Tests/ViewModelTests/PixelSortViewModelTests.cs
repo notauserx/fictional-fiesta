@@ -9,12 +9,14 @@ namespace PixelSort.Domain.Tests
         private PixelSortViewModel getViewModel(int width, int height, TaskScheduler taskScheduler)
         {
             var pixelConfiuration = new PixelConfiguration(width, height, 4, 96);
+            var pixelService = new PixelService(
+                new RandomPixelDataGenerator(),
+                 new BucketSortPixelSorter());
             return new PixelSortViewModel(
                 pixelConfiuration,
                  taskScheduler,
-                 new RandomPixelDataGenerator(),
-                 new BucketSortPixelSorter(),
-                 new PixelConverter(pixelConfiuration));
+                 new PixelConverter(pixelConfiuration),
+                 pixelService);
         }
         [Fact]
         public void Test_IsSorted_Is_False_Initially()

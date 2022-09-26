@@ -1,6 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using PixelSort.Domain;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace PixelSort.App
@@ -14,31 +12,22 @@ namespace PixelSort.App
 
         public App()
         {
-            var services = new ServiceCollection();
+            serviceProvider = DefaultConfiguration.InitializeAndGet();
 
-            ConfigureServices(services);
-            serviceProvider = services.BuildServiceProvider();
-
-        }
-
-        private void ConfigureServices(ServiceCollection services)
-        {
-            services.AddSingleton<IPixelConfiguraiton>
-                (s => PixelConfiguration.HighPixelConfiguration());
-
-            services.AddScoped<IPixelSorter, BucketSortPixelSorter>();
-
-            services.AddSingleton<MainWindow>();
-            services.AddSingleton<PixelSortViewModel>();
-            services.AddSingleton<RandomPixelDataGenerator>();
-            services.AddSingleton<PixelConverter>();
-            services.AddSingleton(s => TaskScheduler.FromCurrentSynchronizationContext());
         }
 
         private void OnStartup(object sender, StartupEventArgs e)
         {
-            var mainWindow = serviceProvider.GetService<MainWindow>();
-            mainWindow.Show();
+            try
+            {
+                var mainWindow = serviceProvider.GetService<MainWindow>();
+                mainWindow.Show();
+            }
+            catch (System.Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+                throw;
+            }
         }
     }
 }

@@ -21,12 +21,12 @@ namespace PixelSort.Domain
             var pixels = new Pixel[count];
             for (int i = 0; i < count; i++)
             {
-                pixels[i] = getRandomPixel();
+                pixels[i] = GetRandomPixel();
             }
             return pixels;
         }
 
-        private Pixel getRandomPixel()
+        public Pixel GetRandomPixel()
         {
             return new Pixel(
                 Color.FromArgb(
