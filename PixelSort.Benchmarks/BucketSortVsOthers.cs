@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace PixelSort.Benchmarks
 {
     [MemoryDiagnoser]
-    [MarkdownExporter, AsciiDocExporter, RPlotExporter]
+    [MarkdownExporterAttribute.GitHub]
     public class BucketSortVsOthers
     {
         IEnumerable<Pixel[]> data;
