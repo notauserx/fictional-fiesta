@@ -20,13 +20,15 @@
 
         public bool ArePixelsSorted() => isSorted;
 
-        public Pixel[] GenerateRandomPixelData(int count)
+        public Pixel[] GenerateRandomPixelData(int count, bool useColorClass = true)
         {
             isSorted = false;
             pixels = new Pixel[count];
             for (int i = 0; i < count; i++)
             {
-                pixels[i] = randomPixelGenerator.GetRandomPixel();
+                pixels[i] = useColorClass 
+                    ? randomPixelGenerator.GetRandomPixel()
+                    : randomPixelGenerator.GetRandomPixelFromRandomBytes();
             }
             return pixels;
         }
