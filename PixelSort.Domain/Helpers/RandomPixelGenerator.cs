@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Linq;
 
 namespace PixelSort.Domain
 {
@@ -15,15 +16,26 @@ namespace PixelSort.Domain
         {
             _random = random;
         }
-        
-        public Pixel[] GenerateRandomPixelData(int count)
+
+        public Pixel[] GenerateRandomPixelData(int count, bool useColorClass = true)
         {
             var pixels = new Pixel[count];
             for (int i = 0; i < count; i++)
             {
-                pixels[i] = GetRandomPixel();
+                pixels[i] = useColorClass 
+                    ? GetRandomPixel()
+                    : GetRandomPixelFromRandomBytes();
             }
             return pixels;
+        }
+
+        public Pixel[] GenerateRandomPixelDataParallelly(int count, bool useColorClass = true)
+        {
+            return Enumerable.Range(0, count)
+                .AsParallel()
+                .Select(x => useColorClass
+                    ? GetRandomPixel()
+                    : GetRandomPixelFromRandomBytes()).ToArray();
         }
 
         public Pixel GetRandomPixel()
@@ -34,6 +46,14 @@ namespace PixelSort.Domain
                     getRandomByte(),
                     getRandomByte(),
                     getRandomByte()));
+        }
+
+        public Pixel GetRandomPixelFromRandomBytes()
+        {
+            return new Pixel(
+                    (byte) getRandomByte(),
+                    (byte)getRandomByte(),
+                    (byte) getRandomByte());
         }
 
         private int getRandomByte()

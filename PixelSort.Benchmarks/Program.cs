@@ -7,7 +7,8 @@ namespace PixelSort.Benchmarks
     {
         static void Main(string[] args)
         {
-            var summary = BenchmarkRunner.Run<BucketSortVsOthers>();
+            //var summary = BenchmarkRunner.Run<BucketSortVsOthers>();
+            var summary = BenchmarkRunner.Run<PixelFromColorsvsPixelFromBytes>();
         }
     }
 }
