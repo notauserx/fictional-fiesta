@@ -1,12 +1,11 @@
 ﻿using BenchmarkDotNet.Attributes;
-using BenchmarkDotNet.Diagnostics.Windows.Configs;
 using PixelSort.Domain;
 using System.Collections.Generic;
 
 namespace PixelSort.Benchmarks
 {
     [MemoryDiagnoser]
-    [MarkdownExporter, AsciiDocExporter, RPlotExporter]
+    [MarkdownExporterAttribute.GitHub]
     public class PixelFromColorsvsPixelFromBytes
     {
         IEnumerable<int> data;
