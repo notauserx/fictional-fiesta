@@ -11,7 +11,6 @@ namespace PixelSort.Domain
 
         private readonly TaskFactory uiTaskFactory;
 
-
         public PixelSortViewModel(
             TaskScheduler taskScheduler,
             WriteableBitmapService writeableBitmapService,
@@ -20,6 +19,7 @@ namespace PixelSort.Domain
             uiTaskFactory = new TaskFactory(taskScheduler);
             this.pixelService = pixelService;
             this.bitmapService = writeableBitmapService;
+
         }
 
         public BitmapSource WriteableBitmap { get => bitmapService.WriteableBitmap; }
@@ -28,13 +28,17 @@ namespace PixelSort.Domain
         public bool ArePixelsEmpty() => pixelService.ArePixelsEmpty();
 
 
-        public void UpdateBackBufferWithRandomPixelData()
+        public async Task<bool> UpdateBackBufferWithRandomPixelData()
         {
-            uiTaskFactory.StartNew(() =>
-            {
-                var count = bitmapService.GetPixelCount();
-                bitmapService.UpdateBackBuffer(pixelService.GenerateRandomPixelData(count));
-            });
+            var count = bitmapService.GetPixelCount();
+
+            await Task.Factory.StartNew(() => pixelService.GenerateRandomPixelData(count))
+                .ContinueWith(t =>
+                {
+                    uiTaskFactory.StartNew(() =>
+                            bitmapService.UpdateBackBuffer(t.Result));
+                });
+            return await Task.FromResult(true);
         }
 
         public void UpdateBackBufferWithSortedPixelData()

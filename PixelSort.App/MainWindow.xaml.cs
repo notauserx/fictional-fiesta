@@ -16,10 +16,16 @@ namespace PixelSort.App
             InitializeComponent();
         }
 
-        private void RandomPixelGeneratorButton_Click(object sender, RoutedEventArgs e)
+        private async void RandomPixelGeneratorButton_Click(object sender, RoutedEventArgs e)
         {
-            pixelSortViewModel.UpdateBackBufferWithRandomPixelData();
-            PixelImage.Source = pixelSortViewModel.WriteableBitmap;
+            RandomPixelGeneratorButton.IsEnabled = false;
+            var result = await pixelSortViewModel.UpdateBackBufferWithRandomPixelData();
+            if (result)
+            {
+                PixelImage.Source = pixelSortViewModel.WriteableBitmap;
+                RandomPixelGeneratorButton.IsEnabled = true;
+
+            }
         }
 
         private void SortPixelsButton_Click(object sender, RoutedEventArgs e)
