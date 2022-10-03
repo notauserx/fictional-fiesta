@@ -41,15 +41,21 @@ namespace PixelSort.Domain
             return await Task.FromResult(true);
         }
 
-        public void UpdateBackBufferWithSortedPixelData()
+        public async Task<bool> UpdateBackBufferWithSortedPixelData()
         {
             if (pixelService.ArePixelsEmpty())
             {
                 throw new Exception("Can not sort pixels before pixels are generated.");
             }
 
-            uiTaskFactory.StartNew(() =>
-                bitmapService.UpdateBackBuffer(pixelService.GetSortedPixels()));
+            await Task.Factory.StartNew(() => pixelService.GetSortedPixels())
+                .ContinueWith(t =>
+                {
+                    uiTaskFactory.StartNew(() =>
+                        bitmapService.UpdateBackBuffer(t.Result));
+                });
+            
+            return await Task.FromResult(true);
         }
     }
 }

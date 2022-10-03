@@ -28,7 +28,7 @@ namespace PixelSort.App
             }
         }
 
-        private void SortPixelsButton_Click(object sender, RoutedEventArgs e)
+        private async void SortPixelsButton_Click(object sender, RoutedEventArgs e)
         {
             if (pixelSortViewModel.ArePixelsEmpty())
             {
@@ -40,7 +40,12 @@ namespace PixelSort.App
             }
             else
             {
-                pixelSortViewModel.UpdateBackBufferWithSortedPixelData();
+                SortPixelsButton.IsEnabled = false;
+                var result = await pixelSortViewModel.UpdateBackBufferWithSortedPixelData();
+                if(result)
+                {
+                    SortPixelsButton.IsEnabled = true;
+                }
             }
 
         }
