@@ -41,7 +41,7 @@ namespace PixelSort.App
             {
                 SortPixelsButton.IsEnabled = false;
                 var result = await pixelSortViewModel.UpdateBackBufferWithSortedPixelData();
-                if(result)
+                if (result)
                 {
                     SortPixelsButton.IsEnabled = true;
                 }

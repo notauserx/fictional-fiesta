@@ -54,7 +54,7 @@ namespace PixelSort.Domain
                     uiTaskFactory.StartNew(() =>
                         bitmapService.UpdateBackBuffer(t.Result));
                 });
-            
+
             return await Task.FromResult(true);
         }
     }
