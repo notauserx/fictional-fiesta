@@ -24,7 +24,6 @@ namespace PixelSort.App
             {
                 PixelImage.Source = pixelSortViewModel.WriteableBitmap;
                 RandomPixelGeneratorButton.IsEnabled = true;
-
             }
         }
 
