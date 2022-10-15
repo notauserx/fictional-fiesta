@@ -3,14 +3,14 @@ using System.Windows.Input;
 
 namespace PixelSort.Domain
 {
-    internal class GenerateRandomPixelsCommand : ICommand
+    internal class PixelsCommandHandler : ICommand
     {
         private readonly Action _action;
 
         public event EventHandler CanExecuteChanged;
 
 
-        public GenerateRandomPixelsCommand(Action action)
+        public PixelsCommandHandler(Action action)
         {
             _action = action;
         }

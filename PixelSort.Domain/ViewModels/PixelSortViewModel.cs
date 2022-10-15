@@ -24,7 +24,8 @@ namespace PixelSort.Domain
             this.pixelService = pixelService;
             this.bitmapService = writeableBitmapService;
 
-            GenerateRandomPixelsCommand = new GenerateRandomPixelsCommand(UpdateBackBufferWithRandomPixelData);
+            GenerateRandomPixelsCommand = new PixelsCommandHandler(UpdateBackBufferWithRandomPixelData);
+            SortPixelsCommand = new PixelsCommandHandler(UpdateBackBufferWithSortedPixelData);
         }
 
         public BitmapSource WriteableBitmap 
@@ -57,11 +58,21 @@ namespace PixelSort.Domain
         {
             if (pixelService.ArePixelsEmpty())
             {
-                throw new Exception("Can not sort pixels before pixels are generated.");
+                return;
             }
 
-            uiTaskFactory.StartNew(() =>
-                bitmapService.UpdateBackBuffer(pixelService.GetSortedPixels()));
+            Task.Factory.StartNew(() =>
+            {
+                return pixelService.GetSortedPixels();
+            }).ContinueWith(t =>
+            {
+                uiTaskFactory.StartNew(() =>
+                {
+                    bitmapService.UpdateBackBuffer(t.Result);
+                });
+
+            });
+
         }
     }
 }

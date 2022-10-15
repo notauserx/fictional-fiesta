@@ -34,7 +34,8 @@
             Grid.Column ="1"
             Grid.Row ="0" 
             Content="Color Sorting" 
-             />
+            Command="{Binding SortPixelsCommand}" />
+
         <Image 
             x:Name="PixelImage"
             Source="{Binding WriteableBitmap}"
