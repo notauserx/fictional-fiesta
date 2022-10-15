@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
 namespace PixelSort.Domain
@@ -11,6 +12,8 @@ namespace PixelSort.Domain
 
         private readonly TaskFactory uiTaskFactory;
 
+        public ICommand GenerateRandomPixelsCommand { get; private set; }
+        public ICommand SortPixelsCommand { get; private set; }
 
         public PixelSortViewModel(
             TaskScheduler taskScheduler,
@@ -20,9 +23,14 @@ namespace PixelSort.Domain
             uiTaskFactory = new TaskFactory(taskScheduler);
             this.pixelService = pixelService;
             this.bitmapService = writeableBitmapService;
+
+            GenerateRandomPixelsCommand = new GenerateRandomPixelsCommand(UpdateBackBufferWithRandomPixelData);
         }
 
-        public BitmapSource WriteableBitmap { get => bitmapService.WriteableBitmap; }
+        public BitmapSource WriteableBitmap 
+        { 
+            get => bitmapService.WriteableBitmap; 
+        }
 
         public bool ArePixelsSorted() => pixelService.ArePixelsSorted();
         public bool ArePixelsEmpty() => pixelService.ArePixelsEmpty();
@@ -30,10 +38,18 @@ namespace PixelSort.Domain
 
         public void UpdateBackBufferWithRandomPixelData()
         {
-            uiTaskFactory.StartNew(() =>
+            var count = bitmapService.GetPixelCount();
+
+            Task.Factory.StartNew(() =>
             {
-                var count = bitmapService.GetPixelCount();
-                bitmapService.UpdateBackBuffer(pixelService.GenerateRandomPixelData(count));
+                return pixelService.GenerateRandomPixelData(count);
+            }).ContinueWith(t =>
+            {
+                uiTaskFactory.StartNew(() =>
+                {
+                    bitmapService.UpdateBackBuffer(t.Result);
+                });
+
             });
         }
 

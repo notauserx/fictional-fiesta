@@ -8,35 +8,9 @@ namespace PixelSort.App
     /// </summary>
     public partial class MainWindow : Window
     {
-        PixelSortViewModel pixelSortViewModel;
-
-        public MainWindow(PixelSortViewModel pixelSortViewModel)
+        public MainWindow()
         {
-            this.pixelSortViewModel = pixelSortViewModel;
             InitializeComponent();
-        }
-
-        private void RandomPixelGeneratorButton_Click(object sender, RoutedEventArgs e)
-        {
-            pixelSortViewModel.UpdateBackBufferWithRandomPixelData();
-            PixelImage.Source = pixelSortViewModel.WriteableBitmap;
-        }
-
-        private void SortPixelsButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (pixelSortViewModel.ArePixelsEmpty())
-            {
-                // TODO :: display error message to the user.
-            }
-            else if (pixelSortViewModel.ArePixelsSorted())
-            {
-                // TODO :: display message to the user.
-            }
-            else
-            {
-                pixelSortViewModel.UpdateBackBufferWithSortedPixelData();
-            }
-
         }
     }
 }

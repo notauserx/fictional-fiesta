@@ -25,7 +25,7 @@
             Grid.Column ="0"
             Grid.Row ="0" 
             Content="Random Color" 
-            Click="RandomPixelGeneratorButton_Click" />
+            Command="{Binding GenerateRandomPixelsCommand}" />
 
         <Button 
             x:Name="SortPixelsButton"
@@ -34,9 +34,10 @@
             Grid.Column ="1"
             Grid.Row ="0" 
             Content="Color Sorting" 
-            Click="SortPixelsButton_Click" />
+             />
         <Image 
             x:Name="PixelImage"
+            Source="{Binding WriteableBitmap}"
             Stretch="UniformToFill"
             Margin="20,30,20,30"
             Grid.ColumnSpan="2"  
