@@ -1,12 +1,11 @@
-﻿using System.ComponentModel;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
 namespace PixelSort.Domain
 {
-    public class PixelSortViewModel : INotifyPropertyChanged
+    public class PixelSortViewModel : ViewModelBase
     {
         private readonly TaskFactory uiTaskFactory;
         private readonly WriteableBitmapService bitmapService;
@@ -70,15 +69,6 @@ namespace PixelSort.Domain
                 _imageVisibility = value;
                 OnPropertyChanged("ImageVisibility");
             }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChangedEventHandler eventHandler = PropertyChanged;
-            if (eventHandler != null)
-                eventHandler(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public void UpdateBackBufferWithRandomPixelData()
