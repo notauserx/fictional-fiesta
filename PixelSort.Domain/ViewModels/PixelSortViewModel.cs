@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -85,7 +84,7 @@ namespace PixelSort.Domain
 
         public void UpdateBackBufferWithSortedPixelData()
         {
-            if (pixelService.ArePixelsEmpty())
+            if (pixelService.ArePixelsEmpty() || pixelService.ArePixelsSorted())
             {
                 return;
             }
