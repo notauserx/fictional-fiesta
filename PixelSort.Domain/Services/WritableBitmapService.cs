@@ -3,12 +3,12 @@ using System.Windows.Media.Imaging;
 
 namespace PixelSort.Domain
 {
-    public class WriteableBitmapService
+    public class WriteableBitmapService 
     {
         private readonly IPixelConfiguraiton config;
         private readonly PixelConverter pixelConverter;
 
-        private readonly WriteableBitmap wb;
+        private WriteableBitmap wb;
 
         public WriteableBitmapService(IPixelConfiguraiton config, PixelConverter pixelConverter)
         {
@@ -20,7 +20,11 @@ namespace PixelSort.Domain
 
         }
 
-        public BitmapSource WriteableBitmap { get => wb; }
+        public BitmapSource WriteableBitmap
+        { 
+            get => wb; 
+        }
+
 
         public int GetPixelCount()
         {
