@@ -39,6 +39,8 @@
         <Image 
             x:Name="PixelImage"
             Source="{Binding WriteableBitmap}"
+            Visibility="{Binding ImageVisibility, 
+                UpdateSourceTrigger=PropertyChanged}"
             Stretch="UniformToFill"
             Margin="20,30,20,30"
             Grid.ColumnSpan="2"  

@@ -1,11 +1,13 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
 namespace PixelSort.Domain
 {
-    public class PixelSortViewModel
+    public class PixelSortViewModel : INotifyPropertyChanged
     {
         private readonly WriteableBitmapService bitmapService;
         private readonly IPixelService pixelService;
@@ -14,6 +16,15 @@ namespace PixelSort.Domain
 
         public ICommand GenerateRandomPixelsCommand { get; private set; }
         public ICommand SortPixelsCommand { get; private set; }
+
+
+        private Visibility _imageVisibility;
+        public Visibility ImageVisibility
+        {
+            get { return _imageVisibility; }
+            set { _imageVisibility = value; OnPropertyChanged("ImageVisibility"); }
+        }
+
 
         public PixelSortViewModel(
             TaskScheduler taskScheduler,
@@ -24,8 +35,10 @@ namespace PixelSort.Domain
             this.pixelService = pixelService;
             this.bitmapService = writeableBitmapService;
 
-            GenerateRandomPixelsCommand = new PixelsCommandHandler(UpdateBackBufferWithRandomPixelData);
+            GenerateRandomPixelsCommand = new PixelsCommandHandler(UpdateBackBufferWithRandomPixelData, () => !isGenerating);
             SortPixelsCommand = new PixelsCommandHandler(UpdateBackBufferWithSortedPixelData);
+
+            ImageVisibility = Visibility.Hidden;
         }
 
         public BitmapSource WriteableBitmap 
@@ -35,10 +48,21 @@ namespace PixelSort.Domain
 
         public bool ArePixelsSorted() => pixelService.ArePixelsSorted();
         public bool ArePixelsEmpty() => pixelService.ArePixelsEmpty();
+        private bool isGenerating;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChangedEventHandler eventHandler = PropertyChanged;
+            if (eventHandler != null)
+                eventHandler(this, new PropertyChangedEventArgs(propertyName));
+        }
 
 
         public void UpdateBackBufferWithRandomPixelData()
         {
+            isGenerating = true;
             var count = bitmapService.GetPixelCount();
 
             Task.Factory.StartNew(() =>
@@ -49,6 +73,11 @@ namespace PixelSort.Domain
                 uiTaskFactory.StartNew(() =>
                 {
                     bitmapService.UpdateBackBuffer(t.Result);
+                    isGenerating = false;
+                    if (ImageVisibility == Visibility.Hidden)
+                    {
+                        ImageVisibility = Visibility.Visible;
+                    }
                 });
 
             });
