@@ -19,32 +19,32 @@ This project was given to me as a take home coding test from a software company.
 
 Verify you have dotnet cli by typing 
 
-```shell
+```powershell
 dotnet
 ```
 
 From the solution's root directory
 
 1. Resotre the packages
-```shell
+```powershell
 dotnet restore
 ```
 
 2. Build the source
 
-```shell
+```powershell
 dotnet build
 ```
 
 3. Optionally, you can run the tests 
 
-```shell
+```powershell
 dotnet test
 ```
 
 4. Run the app with
 
-```shell
+```powershell
 dotnet run --project .\PixelSort.App\
 ```
 
@@ -96,7 +96,7 @@ The solution is divided into three projects
 - Start the project with ctrl + F5
 - The results will be in the following directory
 
-```shell
+```
 PixelSort.Benchmarks\bin\Release\netcoreapp3.1\BenchmarkDotNet.Artifacts\results
 ```
 
@@ -104,17 +104,20 @@ PixelSort.Benchmarks\bin\Release\netcoreapp3.1\BenchmarkDotNet.Artifacts\results
 
 - Make sure dotnet-reportgenerator-globaltool is installed details [here](https://www.nuget.org/packages/dotnet-reportgenerator-globaltool)
 - Genrate coverate report using coverlet
-```shell
+
+```powershell
 dotnet test --collect:"XPlat Code Coverage"
-```shell
+```
+
 - run the following, specify the path to the .xml 
+
 ```powershell
  reportgenerator "-reports:*.xml" "-targetdir:C:\report" -reporttypes:MarkdownSummary
 ```
 
 # TODO 
 
-- Add logging
+- Add logging and exception handling logic
 
 - Currently when generating random pixels, the Hue values are also getting generated. Find an implementation where this calculation can be deferred or offloaded to a seperate thread.
 
