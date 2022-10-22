@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
+using PixelSort.Domain;
 
 namespace PixelSort.App
 {
@@ -21,6 +22,7 @@ namespace PixelSort.App
             try
             {
                 var mainWindow = serviceProvider.GetService<MainWindow>();
+                mainWindow.DataContext = serviceProvider.GetService<PixelSortViewModel>();
                 mainWindow.Show();
             }
             catch (System.Exception ex)
