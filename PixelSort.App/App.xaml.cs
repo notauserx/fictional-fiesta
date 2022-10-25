@@ -1,5 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System;
+using System.Diagnostics;
 using System.Windows;
+using System.Windows.Threading;
+using Microsoft.Extensions.DependencyInjection;
+
 using PixelSort.Domain;
 
 namespace PixelSort.App
@@ -25,11 +29,17 @@ namespace PixelSort.App
                 mainWindow.DataContext = serviceProvider.GetService<PixelSortViewModel>();
                 mainWindow.Show();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine(ex.Message);
+                Debug.WriteLine(ex.Message);
                 throw;
             }
+        }
+
+        private void Application_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            Debug.WriteLine($"An unhandled exception just occurred: {e.Exception}");
+            e.Handled = true;
         }
     }
 }
