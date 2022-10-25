@@ -81,16 +81,19 @@ namespace PixelSort.Domain
                 return pixelService.GenerateRandomPixelData(count);
             }).ContinueWith(t =>
             {
-                uiTaskFactory.StartNew(() =>
+                if (t.IsCompleted)
                 {
-                    bitmapService.UpdateBackBuffer(t.Result);
-                    IsRandomButtonEnabled = true;
-                    if (ImageVisibility == Visibility.Hidden)
+                    uiTaskFactory.StartNew(() =>
                     {
-                        ImageVisibility = Visibility.Visible;
-                    }
-                });
-
+                        bitmapService.UpdateBackBuffer(t.Result);
+                        IsRandomButtonEnabled = true;
+                        if (ImageVisibility == Visibility.Hidden)
+                        {
+                            ImageVisibility = Visibility.Visible;
+                        }
+                    });
+                }
+                // TODO :: handle Faulted or Cancelled states
             });
         }
 
@@ -108,12 +111,15 @@ namespace PixelSort.Domain
                 return pixelService.GetSortedPixels();
             }).ContinueWith(t =>
             {
-                uiTaskFactory.StartNew(() =>
+                if (t.IsCompleted)
                 {
-                    bitmapService.UpdateBackBuffer(t.Result);
-                    IsSortButtonEnabled = true;
-                });
-
+                    uiTaskFactory.StartNew(() =>
+                    {
+                        bitmapService.UpdateBackBuffer(t.Result);
+                        IsSortButtonEnabled = true;
+                    });
+                }
+                // TODO :: handle Faulted or Cancelled states
             });
 
         }
